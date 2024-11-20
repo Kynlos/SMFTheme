@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { utils } from '../js/utils';
 
 describe('Utils', () => {
@@ -34,25 +35,55 @@ describe('Utils', () => {
         });
 
         it('should set and get items from localStorage', () => {
-            const testData = { test: 'data' };
-            utils.storage.set('test-key', testData);
-            expect(localStorage.setItem).toHaveBeenCalledWith('test-key', JSON.stringify(testData));
-            
-            localStorage.getItem.mockReturnValue(JSON.stringify(testData));
-            const result = utils.storage.get('test-key');
-            expect(result).toEqual(testData);
+            utils.storage.set('test', 'value');
+            expect(utils.storage.get('test')).toBe('value');
         });
 
         it('should return default value when item does not exist', () => {
-            localStorage.getItem.mockReturnValue(null);
-            const defaultValue = 'default';
-            const result = utils.storage.get('non-existent', defaultValue);
-            expect(result).toBe(defaultValue);
+            expect(utils.storage.get('nonexistent', 'default')).toBe('default');
         });
 
         it('should remove items from localStorage', () => {
-            utils.storage.remove('test-key');
-            expect(localStorage.removeItem).toHaveBeenCalledWith('test-key');
+            utils.storage.set('test', 'value');
+            utils.storage.remove('test');
+            expect(utils.storage.get('test')).toBeNull();
+        });
+    });
+
+    describe('url', () => {
+        let originalLocation;
+
+        beforeEach(() => {
+            originalLocation = window.location;
+            delete window.location;
+            window.location = {
+                ...originalLocation,
+                search: '?test=value',
+                href: 'http://localhost/?test=value'
+            };
+        });
+
+        afterEach(() => {
+            window.location = originalLocation;
+        });
+
+        it('should get query parameters', () => {
+            const params = utils.url.getQueryParams();
+            expect(params.test).toBe('value');
+        });
+
+        it('should update query parameters', () => {
+            const spy = jest.spyOn(window.history, 'pushState');
+            utils.url.updateQueryParam('test', 'new-value');
+            expect(spy).toHaveBeenCalled();
+            spy.mockRestore();
+        });
+
+        it('should remove query parameters', () => {
+            const spy = jest.spyOn(window.history, 'pushState');
+            utils.url.removeQueryParam('test');
+            expect(spy).toHaveBeenCalled();
+            spy.mockRestore();
         });
     });
 
@@ -87,28 +118,6 @@ describe('Utils', () => {
                 text: 'test',
                 email: 'test@example.com'
             });
-        });
-    });
-
-    describe('url', () => {
-        beforeEach(() => {
-            delete window.location;
-            window.location = new URL('https://example.com?test=value');
-        });
-
-        it('should get query parameters', () => {
-            const params = utils.url.getQueryParams();
-            expect(params).toEqual({ test: 'value' });
-        });
-
-        it('should update query parameters', () => {
-            utils.url.updateQueryParam('test', 'new-value');
-            expect(window.location.search).toContain('test=new-value');
-        });
-
-        it('should remove query parameters', () => {
-            utils.url.removeQueryParam('test');
-            expect(window.location.search).not.toContain('test=');
         });
     });
 

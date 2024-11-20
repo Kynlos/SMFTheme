@@ -157,22 +157,23 @@ const utils = {
     url: {
         getQueryParams() {
             const params = {};
-            new URLSearchParams(window.location.search).forEach((value, key) => {
+            const searchParams = new URLSearchParams(window.location.search);
+            for (const [key, value] of searchParams) {
                 params[key] = value;
-            });
+            }
             return params;
         },
 
         updateQueryParam(key, value) {
-            const params = new URLSearchParams(window.location.search);
-            params.set(key, value);
-            window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+            const url = new URL(window.location.href);
+            url.searchParams.set(key, value);
+            window.history.pushState({}, '', url.toString());
         },
 
         removeQueryParam(key) {
-            const params = new URLSearchParams(window.location.search);
-            params.delete(key);
-            window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+            const url = new URL(window.location.href);
+            url.searchParams.delete(key);
+            window.history.pushState({}, '', url.toString());
         }
     },
 
@@ -334,4 +335,7 @@ const utils = {
 };
 
 // Export utils object
-window.utils = utils;
+export { utils };
+if (typeof window !== 'undefined') {
+    window.utils = utils;
+}

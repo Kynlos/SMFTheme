@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 // Add any custom test setup here
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
