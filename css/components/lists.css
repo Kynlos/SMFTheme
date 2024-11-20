@@ -1,0 +1,135 @@
+/* Lists Component Styles */
+
+/* Base list styles */
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* List items */
+.list-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+/* Ordered lists */
+.list-ordered {
+    counter-reset: list-counter;
+}
+
+.list-ordered .list-item {
+    counter-increment: list-counter;
+}
+
+.list-ordered .list-item::before {
+    content: counter(list-counter) ".";
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+/* Unordered lists */
+.list-unordered .list-item::before {
+    content: "•";
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+/* Description lists */
+.list-description {
+    display: grid;
+    grid-template-columns: minmax(120px, 25%) 1fr;
+    gap: 1rem;
+}
+
+.list-description dt {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.list-description dd {
+    margin: 0;
+}
+
+/* Icon lists */
+.list-icon .list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.list-icon .list-item-icon {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--text-secondary);
+}
+
+/* Interactive lists */
+.list-interactive .list-item {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.list-interactive .list-item:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Nested lists */
+.list-nested .list {
+    margin-left: 1.5rem;
+}
+
+/* Bordered list */
+.list-bordered {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.list-bordered .list-item {
+    padding: 1rem;
+}
+
+/* Spacing variants */
+.list-compact .list-item {
+    padding: 0.5rem;
+}
+
+.list-loose .list-item {
+    padding: 1.25rem;
+}
+
+/* States */
+.list-item.active {
+    background-color: var(--bg-active);
+    color: var(--text-active);
+}
+
+.list-item.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .list-description {
+        grid-template-columns: 1fr;
+    }
+    
+    .list-description dt {
+        margin-bottom: 0.25rem;
+    }
+}
+
+/* Dark mode */
+[data-theme="dark"] .list-item {
+    border-color: var(--border-color-dark);
+}
+
+[data-theme="dark"] .list-interactive .list-item:hover {
+    background-color: var(--bg-hover-dark);
+}

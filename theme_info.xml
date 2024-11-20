@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<theme-info xmlns="http://www.simplemachines.org/xml/theme-info" xmlns:smf="http://www.simplemachines.org/">
+    <id>kynlo:modern_2024</id>
+    <version>1.0</version>
+    <name>Modern 2024</name>
+    <author>Kynlo Akari</author>
+    <website>https://github.com/Kynlos</website>
+    <layers>html,body</layers>
+    <templates>
+        index,
+        header,
+        footer,
+        boardindex,
+        display,
+        messageindex,
+        generic
+    </templates>
+    <based-on></based-on>
+    <description>A modern, responsive theme for Simple Machines Forum with a clean and professional design.</description>
+</theme-info>

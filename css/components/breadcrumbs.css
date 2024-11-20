@@ -1,0 +1,135 @@
+/* Breadcrumbs Component Styles */
+
+/* Base breadcrumbs container */
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* Breadcrumb items */
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Separator */
+.breadcrumb-item:not(:last-child)::after {
+    content: "/";
+    margin: 0 0.5rem;
+    color: var(--text-tertiary);
+}
+
+/* Links */
+.breadcrumb-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Current page */
+.breadcrumb-item.active {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* Icon support */
+.breadcrumb-icon {
+    margin-right: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Truncation for long items */
+.breadcrumb-truncate {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Compact variant */
+.breadcrumbs-compact .breadcrumb-item:not(:last-child)::after {
+    content: "›";
+    margin: 0 0.25rem;
+}
+
+/* Arrow variant */
+.breadcrumbs-arrow .breadcrumb-item:not(:last-child)::after {
+    content: "→";
+    margin: 0 0.5rem;
+}
+
+/* Background variant */
+.breadcrumbs-bg {
+    background-color: var(--bg-secondary);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+}
+
+/* Responsive behavior */
+@media (max-width: 480px) {
+    .breadcrumbs {
+        padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item {
+        font-size: 0.8125rem;
+    }
+
+    /* Hide all except last two items on mobile */
+    .breadcrumb-item:not(:nth-last-child(-n+2)) {
+        display: none;
+    }
+
+    /* Show ellipsis for first visible item */
+    .breadcrumb-item:nth-last-child(2)::before {
+        content: "...";
+        margin-right: 0.5rem;
+    }
+}
+
+/* Dark mode */
+[data-theme="dark"] .breadcrumb-item {
+    color: var(--text-secondary-dark);
+}
+
+[data-theme="dark"] .breadcrumb-link {
+    color: var(--text-secondary-dark);
+}
+
+[data-theme="dark"] .breadcrumb-link:hover {
+    color: var(--primary-color-dark);
+}
+
+[data-theme="dark"] .breadcrumb-item.active {
+    color: var(--text-primary-dark);
+}
+
+[data-theme="dark"] .breadcrumbs-bg {
+    background-color: var(--bg-secondary-dark);
+}
+
+/* Accessibility */
+.breadcrumb-link:focus-visible {
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Print styles */
+@media print {
+    .breadcrumbs {
+        display: none;
+    }
+}

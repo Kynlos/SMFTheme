@@ -1,0 +1,137 @@
+/* Pagination Component Styles */
+
+/* Base pagination container */
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+}
+
+/* Pagination items */
+.pagination-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* Previous/Next buttons */
+.pagination-prev,
+.pagination-next {
+    padding: 0 0.75rem;
+    font-weight: 500;
+}
+
+.pagination-prev::before {
+    content: "←";
+    margin-right: 0.25rem;
+}
+
+.pagination-next::after {
+    content: "→";
+    margin-left: 0.25rem;
+}
+
+/* States */
+.pagination-item:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-hover);
+}
+
+.pagination-item.active {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+}
+
+.pagination-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Size variants */
+.pagination-sm .pagination-item {
+    min-width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.pagination-lg .pagination-item {
+    min-width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.125rem;
+}
+
+/* Ellipsis */
+.pagination-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    color: var(--text-secondary);
+}
+
+/* Compact mode */
+.pagination-compact {
+    gap: 0;
+}
+
+.pagination-compact .pagination-item {
+    border-radius: 0;
+    border: 1px solid var(--border-color);
+    margin-left: -1px;
+}
+
+.pagination-compact .pagination-item:first-child {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+}
+
+.pagination-compact .pagination-item:last-child {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .pagination-item:not(.active):not(.pagination-prev):not(.pagination-next) {
+        display: none;
+    }
+
+    .pagination-ellipsis {
+        display: none;
+    }
+}
+
+/* Dark mode */
+[data-theme="dark"] .pagination-item {
+    color: var(--text-primary-dark);
+}
+
+[data-theme="dark"] .pagination-item:hover {
+    background-color: var(--bg-hover-dark);
+    color: var(--text-hover-dark);
+}
+
+[data-theme="dark"] .pagination-compact .pagination-item {
+    border-color: var(--border-color-dark);
+}
+
+/* Accessibility */
+.pagination-item:focus-visible {
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: 2px;
+}

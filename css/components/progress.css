@@ -1,0 +1,232 @@
+/* Progress Component Styles */
+
+/* Base progress container */
+.progress {
+    position: relative;
+    width: 100%;
+    height: 0.5rem;
+    background-color: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+/* Progress bar */
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+/* Size variants */
+.progress-sm {
+    height: 0.25rem;
+}
+
+.progress-lg {
+    height: 1rem;
+}
+
+/* Color variants */
+.progress-success .progress-bar {
+    background-color: var(--success-color);
+}
+
+.progress-warning .progress-bar {
+    background-color: var(--warning-color);
+}
+
+.progress-danger .progress-bar {
+    background-color: var(--danger-color);
+}
+
+/* Striped variant */
+.progress-striped .progress-bar {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+}
+
+/* Animated stripes */
+.progress-striped.progress-animated .progress-bar {
+    animation: progress-stripes 1s linear infinite;
+}
+
+/* Indeterminate progress */
+.progress-indeterminate .progress-bar {
+    width: 50%;
+    animation: progress-indeterminate 1.5s ease infinite;
+}
+
+/* Label */
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* Circular progress */
+.progress-circular {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+}
+
+.progress-circular-svg {
+    transform: rotate(-90deg);
+}
+
+.progress-circular-track {
+    fill: none;
+    stroke: var(--bg-secondary);
+    stroke-width: 4;
+}
+
+.progress-circular-indicator {
+    fill: none;
+    stroke: var(--primary-color);
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.3s ease;
+}
+
+.progress-circular-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Steps progress */
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.progress-step {
+    position: relative;
+    flex: 1;
+}
+
+.progress-step::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--border-color);
+    transform: translateY(-50%);
+}
+
+.progress-step-indicator {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.progress-step.completed .progress-step-indicator {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.progress-step.active .progress-step-indicator {
+    border-color: var(--primary-color);
+}
+
+/* Loading state */
+.progress-loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--bg-hover),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+}
+
+/* Dark mode */
+[data-theme="dark"] .progress {
+    background-color: var(--bg-secondary-dark);
+}
+
+[data-theme="dark"] .progress-step::before {
+    background-color: var(--border-color-dark);
+}
+
+[data-theme="dark"] .progress-step-indicator {
+    background-color: var(--bg-primary-dark);
+    border-color: var(--border-color-dark);
+}
+
+/* Animations */
+@keyframes progress-stripes {
+    0% {
+        background-position: 1rem 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+@keyframes progress-indeterminate {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Accessibility */
+.progress {
+    position: relative;
+}
+
+.progress[role="progressbar"] {
+    outline: none;
+}
+
+/* Print styles */
+@media print {
+    .progress-striped .progress-bar,
+    .progress-animated .progress-bar {
+        background-image: none;
+    }
+}
