@@ -36,8 +36,8 @@ jobs:
       
     - name: Convert line endings
       run: |
-        find . -type f -name "*.js" -exec dos2unix {} \;
-        find . -type f -name "*.css" -exec dos2unix {} \;
+        find . -type f -name "*.js" -exec sed -i 's/\r$//' {} \;
+        find . -type f -name "*.css" -exec sed -i 's/\r$//' {} \;
     
     - name: Run linting
       run: |
